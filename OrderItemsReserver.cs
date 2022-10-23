@@ -20,8 +20,9 @@ namespace OrderReserver
                 string Connection = Environment.GetEnvironmentVariable("Storage");
                 string containerName = Environment.GetEnvironmentVariable("ContainerName");
                 var blobClient = new BlobContainerClient(Connection, containerName);
-                var blob = blobClient.GetBlobClient(Guid.NewGuid().ToString());
+                var blob = blobClient.GetBlobClient(Guid.NewGuid().ToString() + ".json");
                 await blob.UploadAsync(myQueueItem);
+
             } catch (Exception ex)
             {
                 log.LogError(ex.Message, ex);

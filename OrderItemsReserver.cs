@@ -13,8 +13,6 @@ namespace OrderReserver
         [FunctionName("OrderItemsReserver")]
         public async Task Run([ServiceBusTrigger("orders", Connection = "ServiceBusConnection")]string myQueueItem, ILogger log)
         {
-            try
-            {
                 log.LogInformation($"C# ServiceBus queue trigger function processed message: {myQueueItem}");
 
                 string Connection = Environment.GetEnvironmentVariable("Storage");
@@ -22,12 +20,6 @@ namespace OrderReserver
                 var blobClient = new BlobContainerClient(Connection, containerName);
                 var blob = blobClient.GetBlobClient(Guid.NewGuid().ToString() + ".json");
                 await blob.UploadAsync(myQueueItem);
-
-            } catch (Exception ex)
-            {
-                log.LogError(ex.Message);
-            }
-
         }
     }
 }

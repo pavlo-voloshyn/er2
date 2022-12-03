@@ -25,7 +25,7 @@ namespace OrderReserver
 
             } catch (Exception ex)
             {
-                log.LogError(ex.Message, ex);
+                log.LogError(ex.Message);
             }
 
         }

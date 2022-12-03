@@ -21,7 +21,7 @@ namespace OrderReserver
                 log.LogInformation(containerName);
                 var blobClient = new BlobContainerClient(Connection, containerName);
                 var blob = blobClient.GetBlobClient(Guid.NewGuid().ToString() + ".json");
-                await blob.UploadAsync(myQueueItem);
+                await blob.UploadAsync(new BinaryData(myQueueItem));
         }
     }
 }

@@ -16,7 +16,9 @@ namespace OrderReserver
                 log.LogInformation($"C# ServiceBus queue trigger function processed message: {myQueueItem}");
 
                 string Connection = Environment.GetEnvironmentVariable("Storage");
+                log.LogInformation(Connection);
                 string containerName = Environment.GetEnvironmentVariable("ContainerName");
+                log.LogInformation(containerName);
                 var blobClient = new BlobContainerClient(Connection, containerName);
                 var blob = blobClient.GetBlobClient(Guid.NewGuid().ToString() + ".json");
                 await blob.UploadAsync(myQueueItem);
